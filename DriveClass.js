@@ -1,16 +1,15 @@
+//Drive class for controlling the motors
+
+//These are the Gpio pins for the motors 
+var leftFor = 24,
+	leftBak = 26,
+	rightFor = 19,
+	rightBak = 21;
+
 // motor controller
 var gpio = require("pi-gpio");
 
-leftFor = 24;
-leftBak = 26;
-rightFor = 19;
-rightBak = 21;
-
 function dobj(){
-	this.leftFor = 19;
-	this.leftBak = 21;
-	this.rightFor = 24;
-	this.rightBak = 26;
 };
 
 dobj.openAll = function(gpio){
