@@ -1,7 +1,10 @@
 $(document).ready(function(){
+	
+	window.panTiltSensivity = 20; // Change if needed
+
 	window.G_touchPadHandles = "";
 	window.G_panTiltHandles = "";
-	window.socket = io("http://192.168.0.20:8888");
+	window.socket = io(document.URL);
 	changeMode("motors");
 	window.G_touchdown = false;
 	window.G_Tolerance = 50;
@@ -224,8 +227,6 @@ function resetThings(){
 	window.G_Stoppercalled = false;
 }
 
-
-
 function ptPad(){
 	var retHandles = new Object();
 	retHandles.lastx = retHandles.lasty = 0; 
@@ -233,10 +234,14 @@ function ptPad(){
 	retHandles.divWidth = $ddiv.outerWidth();
 	retHandles.divHeight = $ddiv.height();
 
-	var sensitivity = 40; //relates to the amount of calls you want
+	var sensitivity = window.panTiltSensivity; //relates to the amount of calls you want
 	//to socket io in the width and height of the touchpad (holds true on different screen sizes - subject to reload)
+	//the call to servoblaster is between 50 and 250, 250 - 50 = 200
+	//an offset of 150 is used in the code below to find the midpoint or 0
 	retHandles.xGrad = retHandles.divWidth / sensitivity;
 	retHandles.yGrad = retHandles.divHeight / sensitivity;
+	retHandles.xconversion = Math.round(retHandles.divWidth / 200); 
+	retHandles.yconversion = Math.round(retHandles.divHeight / 200);
 
 	var box1 = document.getElementById('controlPad');
 	box1.addEventListener('touchstart', pTouchStart);
@@ -293,28 +298,27 @@ function ptPad(){
 		window.G_touchdown = false;
 	});
 
+	
 	function panTilt(X,Y){
 		X=-X;
 		if ((Y>window.G_padSize)||(X>window.G_padSize)||(X<-window.G_padSize)||(X<-window.G_padSize)) {
 			// STOPALL
 			window.G_touchdown = false;
-		
 		} else { 
 			if (((X-retHandles.lastx)> retHandles.xGrad)||((X-retHandles.lastx) < -retHandles.xGrad)){
 				retHandles.lastx =  X;
-				var value = 150 + (5*(Math.round(X/retHandles.xGrad)));
+				var value = 150 + (Math.round(X/retHandles.xconversion));	
 				console.log("pan "+value);
 				window.socket.emit('pan', value);
 			}
 
 			if (((Y-retHandles.lasty)> retHandles.yGrad)||((Y-retHandles.lasty) < -retHandles.yGrad)){
 				retHandles.lasty =  Y;
-				var value = 150 + (5*(Math.round(Y/retHandles.yGrad)));
+				var value = 150 + (Math.round(Y/retHandles.yconversion));	
 				console.log("tilt"+value);
 				window.socket.emit('tilt', value);
 			}
 		}
-
 		window.socket.on('panTiltSuccess', function (data) {
 			console.log(data);
 		});
