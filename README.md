@@ -1,16 +1,18 @@
-pi-motor-and-servo-controls
+pi-motor-and-servo-controller
 ============
 
 ## Synopsis
 
-A way to control the <a href="http://4tronix.co.uk/blog/?p=50" target=blank>4tronix Initio</a> or other raspberry Pi Motors.
+A way to control the <a href="http://4tronix.co.uk/blog/?p=50" target=blank>4tronix Initio</a> or other raspberry Pi Motors and pan/tilt servo assembly.
 
-It works by starting a node server on the pi, then it serves a web page which contains a very simple touch pad which interacts with the pi gpio pins via node.js and socket.io. Can be used to run the motors, back, forward, left, right...
+It works by starting a node server on the pi, then it serves a web page which contains a very simple touch pad which interacts with the pi gpio pins via node.js and socket.io. 
 
 ##IMPORTANT
-**THIS PROJECT IS SET UP TO MANIPULATE GPIO PINS: 24, 26, 19, 21 (the motor pins on the initio)**
+**THIS PROJECT IS SET UP TO MANIPULATE GPIO PINS: 24, 26, 19, 21 (the motor pins on the initio)
+Please change these numbers in the file driveclass.js if needed
 
-**Please change these numbers in the file driveclass.js if needed**
+For the servos it uses pins 18 and 22
+Please change these numbers in the file start.js if needed**
 
 
 ## Dependancies
