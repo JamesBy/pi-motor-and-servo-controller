@@ -1,4 +1,4 @@
-pi-motor-controls
+pi-motor-and-servo-controls
 ============
 
 ## Synopsis
