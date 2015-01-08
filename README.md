@@ -7,6 +7,8 @@ A way to control the <a href="http://4tronix.co.uk/blog/?p=50" target=blank>4tro
 
 It works by starting a node server on the pi, then it serves a web page which contains a very simple touch pad which interacts with the pi gpio pins via node.js and socket.io. 
 
+<a href="http://www.jbyrne.ie/robot/" target=blank>Website</a>
+
 ##IMPORTANT
 <b>THIS PROJECT IS SET UP TO MANIPULATE GPIO PINS: 24, 26, 19, 21 (the motor pins on the initio)
 Please change these numbers in the file driveclass.js if needed</b>
